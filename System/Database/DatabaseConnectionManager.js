@@ -1,4 +1,4 @@
-var mysql = require('mysql'); //mysql driver for node.js
+var mysql = require('mysql2'); //mysql driver for node.js
 var enviroment  = require('../Enviroment/enviromentManager');
 
 var connectionPools = {};
@@ -22,7 +22,7 @@ function getServerConnectionData(index, type){
 
 module.exports = {
     initPools : ()=>{
-        var serversCount = enviroment.DB_SOURCE.COUNT || 1;
+        var serversCount = enviroment.DB_SOURCE.COUNT || 6;
         for(var index=1; index<=serversCount; index++){
             var pool_key_read = ['pool', index, 'read'].join('_');
             var pool_key_write = ['pool', index, 'write'].join('_');
@@ -50,6 +50,30 @@ module.exports = {
         }else{
             return null
         }
+    },
+
+    keepAlive: function(){
+        var keepAliveFunc = ()=>{
+            Object.keys(connectionPools).forEach(poolKey=>{
+                //console.log(`Refreshing ${poolKey}`)
+                var pool = connectionPools[poolKey];
+                if(pool){
+                    pool.getConnection(function(err, connection){
+                        if(err) { return; }
+                        connection.query( "SELECT 1", function(err, rows) {
+                            connection.release();
+                            if (err) {
+                                return console.log("QUERY ERROR: " + err);
+                            }
+                            //console.log(`Refreshing ${poolKey} `, rows, new Date());
+                        });
+                    });  
+                }
+            });
+        }
+
+        keepAliveFunc();
+        setInterval(keepAliveFunc, 30000);
     }
 }; 
 

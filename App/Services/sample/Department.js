@@ -2,9 +2,9 @@ var queryRunner = require('../../Utils/Database/QueryRunner');
 
 module.exports = {
     fetchDepartments: function(){
-        return queryRunner.runQuery(1,`
-            SELECT * FROM departments
-        `, 'read');
+        return queryRunner.runQuery('default',`
+            SELECT * FROM DEPARTMENT
+        `, 'read', 'true');
     },
 
     fetchDepartmentEmployees: function(deptId){

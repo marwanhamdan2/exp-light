@@ -3,6 +3,10 @@ var departmentService = require('../../Services/sample/Department');
 
 module.exports = function(req, res){
     var deptId = req.params.id || null;
+    console.log("headers", req.headers);
+    console.log("path", req.params);
+    console.log("query", req.query);
+    
 
     if(!deptId){
         res.json(

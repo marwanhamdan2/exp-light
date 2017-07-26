@@ -7,29 +7,47 @@ module.exports = [
         'route' : '/v1/departments',
         'controllerAction' : 'Sample/Departments',
         'middlewares' : ['Token'],
-        'useCache' : false 
+        'useCache' : false,
+        'swaggerDocs' : {
+            description : "department list api",
+            produces : ["application/json"],
+            params : [
+                { "in" : "query",  "name" : "_t",    "type" : "string" }
+            ]
+        }
     },
 
-    /**
-     * Example:
-        localhost:web_server_port/v1/departments?_t=QcG6kP3yDnUHD67hWAAQyqrDdFm4gBPW
-     */
     {
         'verb' : 'get',
         'route' : '/v1/department/:id/employees',
         'controllerAction' : 'Sample/DepartmentEmployees',
-        'middlewares' : [],
-        'useCache' : true 
+        'middlewares' : ['Token'],
+        'useCache' : false,
+        'swaggerDocs' : {
+            description : "employees search api",
+            produces : ["application/json"],
+            params : [
+                { "in" : "query",  "name" : "_t",    "type" : "string" },
+                { "in" : "path",   "name" : "id",    "type" : "string" },
+                { "in" : "header", "name" : "auth",  "type" : "string" }
+            ]
+        }
     },
-    /**
-     * Example:
-       localhost:web_server_port/v1/departments
-     */
+
     {
-        'verb' : 'get',
-        'route' : '/v1/view',
-        'controllerAction' : 'Sample/View',
+        'verb' : 'post',
+        'route' : '/api/login',
+        'controllerAction' : 'Sample/Login',
         'middlewares' : [],
-        'useCache' : false 
-    },
+        'useCache' : false,
+        'swaggerDocs' : {
+            description : "employees search api",
+            produces : ["application/json"],
+            consumes: [ "application/json" ],
+            params : [
+                { "in" : "header", "name" : "auth",  "type" : "string" },
+                { "in" : "body", "params" : ['email', 'password'] }
+            ]
+        }        
+    }
 ]

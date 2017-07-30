@@ -4,12 +4,15 @@
   "description": "Nodejs backend framework based on express.js",
   "main": "index.js",
   "scripts": {
+    "postinstall": "npm install pm2 -g",
     "migration-create": "cd Sequelize; ../node_modules/.bin/sequelize migration:create",
     "migration-list": "cd Sequelize; ../node_modules/.bin/sequelize --env=$NODE_ENV db:migrate:status",
     "migration-start": "cd Sequelize; ../node_modules/.bin/sequelize --env=$NODE_ENV  db:migrate",
     "migration-undo": "cd Sequelize; ../node_modules/.bin/sequelize --env=$NODE_ENV db:migrate:undo",
     "run-Scheduler": "node ./Scheduler/run.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "start-cluster-mode": "pm2 start index.js -i $CLUSTER_NUM --attach",
+    "test": "NODE_ENV=test ./node_modules/.bin/mocha --timeout 10000"
   },
   "author": "Marwan Hamdan <marwan@mashvisor.com>",
   "license": "MIT",
@@ -32,5 +35,10 @@
     "sequelize-cli": "^2.7.0",
     "swagger-ui-express": "^2.0.3",
     "winston": "^2.3.1"
+  },
+  "devDependencies": {
+    "chai": "^4.1.0",
+    "chai-http": "^3.0.0",
+    "mocha": "^3.4.2"
   }
 }

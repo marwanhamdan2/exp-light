@@ -35,12 +35,17 @@ module.exports = ()=>{
     /**
      * Web Server initialization
      */
-    var WebServer = require('./Http/WebServer');
-    WebServer.initServer(app);
+    if(enviroment.NAME != 'test'){
+        var WebServer = require('./Http/WebServer');
+        WebServer.initServer(app);
+    }
 
     /**
      * Express Routes initialization
      */
     var Routes = require('./Http/Routes');
     Routes.initRoutes(app);
+
+    //return the express app
+    return app;
 }

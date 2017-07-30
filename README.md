@@ -9,9 +9,19 @@ npm Install
 
 # run #
 ```javascript
-node index.js
+npm start
 ```
 
+# run in cluster mode #
+```javascript
+CLUSTER_NUM=2 npm run start-cluster-mode
+```
+
+# run unit tests #
+add new test case into ./test folder
+```javascript
+npm test
+```
 
 # Migration #
 * #####  Help ##### 

@@ -1,10 +1,3 @@
-/**
- * 
- * Logger Class
- * @package Servers/Utils
- * @author Mohammed Jebrini <mohd@mashvisor.com> 05 April 2017
- * 
- */
 const winston      = require('winston');
 const enviroment = require('../../System/Enviroment/enviromentManager');
 
@@ -17,14 +10,14 @@ var logger = null;
  * Get Signlton Instance 
  */
 function getLogger() {
-    if(logger == null) {
-        logger = new winston.Logger({
-            transports: [
-                new (winston.transports.Console)()
-            ]
-        });
-    }
-    return logger;
+  if(logger == null) {
+    logger = new winston.Logger({
+      transports: [
+          new (winston.transports.Console)()
+      ]
+    });
+  }
+  return logger;
 } 
 
 /**

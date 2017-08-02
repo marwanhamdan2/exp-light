@@ -4,7 +4,7 @@
 module.exports = [
     {
         'verb' : 'get',
-        'route' : '/v1/departments',
+        'route' : '/Sample/departments',
         'controllerAction' : 'Sample/Departments',
         'middlewares' : ['Token'],
         'useCache' : false,
@@ -19,7 +19,7 @@ module.exports = [
 
     {
         'verb' : 'get',
-        'route' : '/v1/department/:id/employees',
+        'route' : '/Sample/department/:id/employees',
         'controllerAction' : 'Sample/DepartmentEmployees',
         'middlewares' : ['Token'],
         'useCache' : false,
@@ -36,7 +36,7 @@ module.exports = [
 
     {
         'verb' : 'post',
-        'route' : '/api/login',
+        'route' : '/Sample/login',
         'controllerAction' : 'Sample/Login',
         'middlewares' : [],
         'useCache' : false,
@@ -49,5 +49,13 @@ module.exports = [
                 { "in" : "body", "params" : ['email', 'password'] }
             ]
         }        
+    },
+
+    {
+        'verb' : 'post',
+        'route' : '/Sample/test/body',
+        'controllerAction' : 'Sample/TestBody',
+        'middlewares' : [],
+        'useCache' : false,
     }
 ]

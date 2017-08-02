@@ -1,0 +1,5 @@
+apps:
+  - script   : 'index.js'
+    name     : 'exp-light'
+    exec_mode: 'cluster'
+    instances: 2

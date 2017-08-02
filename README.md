@@ -7,6 +7,12 @@ Nodejs Web Framework based on Expressjs
 npm Install
 ```
 
+# install ssl certs #
+you need to have openssl installed
+```
+npm run generate-ssl-cert
+```
+
 # run #
 ```javascript
 npm start

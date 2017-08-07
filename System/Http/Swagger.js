@@ -61,8 +61,7 @@ module.exports = {
         });
 
         
-        var swaggerRouteRef = {};
-        swaggerRouteRef[`${verb}`] = {
+        var swaggerRouteRef = {
           tags : [`${path}`],
           description: description,
           produces : produces,
@@ -73,7 +72,10 @@ module.exports = {
 
         //convert express style to swagger style
         var swaggerStylePath = path.replace(/(:)(\w+)/g, '{$2}');
-        swaggerBaseRef.paths[`${swaggerStylePath}`] = swaggerRouteRef;
+        if(!swaggerBaseRef.paths[`${swaggerStylePath}`]){
+          swaggerBaseRef.paths[`${swaggerStylePath}`] = {};
+        }
+        swaggerBaseRef.paths[`${swaggerStylePath}`][`${verb}`] = swaggerRouteRef;
       }
     })
     

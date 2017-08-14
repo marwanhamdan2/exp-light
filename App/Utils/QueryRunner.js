@@ -29,9 +29,9 @@ function runQueryPromise(pool, query, qParams, cacheOptions){
       };
 
       if(qParams){
-        connection.query(query, queryResCallback);
-      }else{
         connection.query(query, qParams, queryResCallback);
+      }else{
+        connection.query(query, queryResCallback);
       }
     });
   })

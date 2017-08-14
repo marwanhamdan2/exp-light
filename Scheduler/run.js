@@ -3,6 +3,13 @@ var glob = require('glob');
 
 var jobsList = [];
 
+  /**
+   * Database connection pools initialization
+   */
+  var MysqlConnectionManager = require('../System/Database/MysqlConnectionManager');
+  MysqlConnectionManager.initPools();
+  MysqlConnectionManager.keepAlive();
+
 glob('Scheduler/tasks/*.task.js', function(er, files){
   files.forEach(file=>{
     var taskPath = __dirname + "/../" + file;

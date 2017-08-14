@@ -69,7 +69,7 @@ module.exports = {
     return new Promise((resolve, reject)=>{
       var client = this.getClient();
       if(!client){
-        return reject();
+        return resolve(null);
       }
       client.get(key, (err, value)=>{
         return err ? resolve(null) : value ?  resolve(value) : resolve(null);

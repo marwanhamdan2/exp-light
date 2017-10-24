@@ -20,10 +20,9 @@ module.exports = ()=>{
    * Init caching
    */
   var Cacher = require('./Database/Cacher');
-  Cacher.initClient();
-  // if(require('./Enviroment/enviromentManager').USE_QUERY_CACHE === 'true'){
-  //     Cacher.initQueryCacheClient();
-  // }
+  if(require('./Enviroment/enviromentManager').USE_QUERY_CACHE === 'true'){
+      Cacher.initClient();
+  }
 
   /**
    * Database connection pools initialization

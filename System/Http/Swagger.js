@@ -18,7 +18,9 @@ var swaggerBaseRef = {
 
 module.exports = {
   generateDocsFile: function(){
-    fs.unlinkSync(swaggerFileLocation);
+    try{
+      fs.unlinkSync(swaggerFileLocation);      
+    }catch(err){};
 
     routesList.forEach(route=>{
       var verb = route.verb;

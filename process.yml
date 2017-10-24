@@ -3,3 +3,7 @@ apps:
     name     : 'exp-light'
     exec_mode: 'cluster'
     instances: 2
+  - script   : './Scheduler/run.js'
+    name     : 'tasks scheduler'
+    exec_mode: 'cluster'
+    instances: 1

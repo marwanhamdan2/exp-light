@@ -10,7 +10,7 @@
     "migration-start": "cd Sequelize; ../node_modules/.bin/sequelize --env=$NODE_ENV  db:migrate",
     "migration-undo": "cd Sequelize; ../node_modules/.bin/sequelize --env=$NODE_ENV db:migrate:undo",
     "run-Scheduler": "node ./Scheduler/run.js",
-    "start": "node index.js",
+    "start": "pm2 start process.yml",
     "start-cluster-mode": "pm2 start index.js -i $CLUSTER_NUM --attach",
     "test": "NODE_ENV=test ./node_modules/.bin/mocha --timeout 10000",
     "generate-ssl-cert" : "cd System/Http/ssl-cert; openssl req -x509 -newkey rsa:2048 -keyout key.pem -out cert.pem -days 365 -nodes"

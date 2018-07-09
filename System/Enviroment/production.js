@@ -18,7 +18,7 @@ module.exports = {
   USE_QUERY_CACHE: process.env.USE_QUERY_CACHE || 'true',
 
   MYSQL_CONNECTIONS: {
-    1 : {
+    emp_connection : {
       host_read     : '127.0.0.1',
       host_write    : '127.0.0.1',
       user     : 'root',

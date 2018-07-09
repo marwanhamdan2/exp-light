@@ -43,9 +43,7 @@ module.exports = {
       //db replica type
       var type = type || 'read';
       //which connection
-      var connectionx = connection == 'default' ? connection : parseInt(connection);
-      const pool = databaseConnectionManager.getPool(connectionx, type);
-
+      const pool = databaseConnectionManager.getPool(connection, type);
       //is query cache enabled
       var useQueryCache = Enviroment.USE_QUERY_CACHE;
       //shold use caching for this query
@@ -58,9 +56,9 @@ module.exports = {
       
       var cacheKey;
       if(qParams){
-        cacheKey = md5(query + JSON.stringify(qParams) + connectionx);
+        cacheKey = md5(query + JSON.stringify(qParams) + connection);
       }else{
-        cacheKey = md5(query + connectionx);
+        cacheKey = md5(query + connection);
       }
       
       var flowRef;
@@ -82,18 +80,14 @@ module.exports = {
 
       return flowRef
       .then(dbRes=>{
-        console.log("here");
         var endTime = (new Date());
         var elappsed = endTime - startTime;
-        var logMessage = `DB-ACCESS: SUCCESS - region-${connection}-${type} - useCache=${useCacheFlag} - ${new Date().toUTCString()} - ${elappsed}ms`;
+        var logMessage = `DB-ACCESS: SUCCESS - connection-${connection}-${type} - useCache=${useCacheFlag} - ${new Date().toUTCString()} - ${elappsed}ms`;
         logger.info(logMessage)
         return Promise.resolve(dbRes);
       })
       .catch(err=>{
-        console.log("here2");
-        var endTime = (new Date());
-        var elappsed = endTime - startTime;
-        var logMessage = `DB-ACCESS: FAIL - region-${connection}-${type} - useCache=${useCacheFlag} - ${new Date().toUTCString()} - ${err}`;
+        var logMessage = `DB-ACCESS: FAIL - connection-${connection}-${type} - useCache=${useCacheFlag} - ${new Date().toUTCString()} - ${err}`;
         logger.info(logMessage)
         return Promise.reject(err);
       })

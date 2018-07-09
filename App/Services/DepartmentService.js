@@ -17,6 +17,6 @@ module.exports = {
         where dept_id=?
     `;
     var queryParams = [deptId];
-    return queryRunner.runQuery(1, query, queryParams, 'read');
+    return queryRunner.runQuery("emp_connection", query, queryParams, 'read');
   }
 }

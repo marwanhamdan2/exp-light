@@ -31,13 +31,13 @@ module.exports = ()=>{
   MysqlConnectionManager.initPools();
   MysqlConnectionManager.keepAlive();
   /**
-   * Web Server initialization
+   * HTTP Server initialization
    */
   if(enviroment.NAME != 'test'){
-      var WebServer = require('./Http/WebServer');
-      WebServer.initServer(app);
+      var HttpServer = require('./Http/HttpServer');
+      HttpServer.initServer(app);
       if(enviroment.OPEN_HTTPS === 'true'){
-        WebServer.initHttpsServer(app);
+        HttpServer.initHttpsServer(app);
       }
   }
 

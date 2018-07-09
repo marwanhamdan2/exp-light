@@ -17,15 +17,14 @@ module.exports = {
   USE_QUERY_CACHE: process.env.USE_QUERY_CACHE || 'true',
 
   MYSQL_CONNECTIONS: {
-    COUNT : 1,
-    DB_SERVER_1 : {
+    1 : {
       host_read     : '127.0.0.1',
       host_write    : '127.0.0.1',
       user     : 'root',
       password : '12345',
-      database : 'datax'
+      database : 'emp_database'
     },
-    DB_SERVER_DEFAULT : {
+    default : {
       host_read     : '127.0.0.1',
       host_write    : '127.0.0.1',
       user     : 'root',

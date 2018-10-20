@@ -3,23 +3,18 @@ var enviroment  = require('../Enviroment/enviromentManager');
 
 var connectionPools = {};
 
-function getConnectionRef(key){
-    return enviroment.MYSQL_CONNECTIONS[key] || null;
+function getConnectionRef(key, type){
+    return enviroment.MYSQL_CONNECTIONS[key][type || "write"] || null;
 }
 
 module.exports = {
     initPools : ()=>{
         var connectionKeys = Object.keys(enviroment.MYSQL_CONNECTIONS);
         connectionKeys.forEach(connectionKey=>{
-            var connectionRef = getConnectionRef(connectionKey);
-            var readConnection =  JSON.parse(JSON.stringify(connectionRef));
-            readConnection.host = readConnection["host_read"];
-            var writeConnection = JSON.parse(JSON.stringify(connectionRef));
-            writeConnection.host = writeConnection["host_write"];
-
+            var readConnection =  JSON.parse(JSON.stringify(getConnectionRef(connectionKey, "read")));
+            var writeConnection = JSON.parse(JSON.stringify(getConnectionRef(connectionKey, "write")));
             var poolReadKey = [connectionKey, 'read'].join('_');
             var poolWriteKey = [connectionKey, 'write'].join('_');
-
             connectionPools[poolReadKey] = mysql.createPool(readConnection);
             connectionPools[poolWriteKey] = mysql.createPool(writeConnection);
         });

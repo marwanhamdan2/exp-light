@@ -17,20 +17,37 @@ module.exports = {
   USE_QUERY_CACHE: process.env.USE_QUERY_CACHE || 'true',
 
   MYSQL_CONNECTIONS: {
-    COUNT : 1,
-    DB_SERVER_1 : {
-      host_read     : '127.0.0.1',
-      host_write    : '127.0.0.1',
-      user     : 'root',
-      password : '12345',
-      database : 'datax'
+    emp_connection : {
+      write: {
+        host: '127.0.0.1',
+        port: 3306,
+        user: 'root',
+        password: '12345',
+        database: 'emp_database',
+      },
+      read: {
+        host: '127.0.0.1',
+        port: 3306,
+        user: 'root',
+        password: '12345',
+        database: 'emp_database',
+      }
     },
-    DB_SERVER_DEFAULT : {
-      host_read     : '127.0.0.1',
-      host_write    : '127.0.0.1',
-      user     : 'root',
-      password : '12345',
-      database : 'datax'
+    default : {
+      write: {
+        host: '127.0.0.1',
+        port: 3306,
+        user: 'root',
+        password: '12345',
+        database: 'datax',
+      },
+      read: {
+        host: '127.0.0.1',
+        port: 3306,
+        user: 'root',
+        password: '12345',
+        database: 'datax',
+      }
     }
   },
 }

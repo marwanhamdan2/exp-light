@@ -1,5 +1,6 @@
 const MIDDLEWARES_PATH = '../../App/Middlewares/';
 const CONTROLLERS_PATH = '../../App/Controllers/';
+const POSTMIDDLEWARES_PATH = '../../App/PostMiddlewares/';
 const Enviroment = require('../Enviroment/enviromentManager');
 
 /**
@@ -11,16 +12,19 @@ if(Enviroment.USE_HTTP_CACHE == 'true'){
   cache.on('error', require('./Cache').errorHandler);
 }
 
-var routeHandler = function(req, res, controllerAction, middlewares){
+var routeHandler = async function(req, res, controllerAction, middlewares, postMiddlewares){
   next = true;
   //synchronous checkers 
   for(index=0; index<middlewares.length; index++){
-    if(!middlewares[index](req, res)){
+    try{
+      await middlewares[index](req, res);
+    }catch(err){
       next = false;
       break;
     }
   }
   if(next){
+    req.postMiddlewares = postMiddlewares;
     controllerAction(req, res);
   }
 }
@@ -35,9 +39,13 @@ module.exports = {
           return require(MIDDLEWARES_PATH+middleware);
       });
 
+      var postMiddlewares = route.postMiddlewares || [];
+      postMiddlewares = postMiddlewares.map(pm=>{
+        return require(POSTMIDDLEWARES_PATH + pm);
+      });
 
       var handlerCallback = function(req, res){
-        routeHandler(req, res, controllerAction, middlewares)
+        routeHandler(req, res, controllerAction, middlewares, postMiddlewares)
       }
       
       if(route.verb == 'get' || route.verb == 'GET'){

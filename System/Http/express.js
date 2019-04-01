@@ -107,6 +107,7 @@ module.exports = {
     app.use("/static/", express.static(__dirname + '/../../Resources/static'));
     app.use(bearerToken());
     app.use(requestIp.mw());
+
     //monitor requests and responses lifecycle
     app.use(function (req, res, next) {
         var startTime = new Date();
@@ -115,6 +116,14 @@ module.exports = {
             var elappsed = endTime - startTime;
             var message = `HTTP-SERVER-HIT: ${req.clientIp} - ${req.method} ${req.originalUrl} ${res.statusCode} - ${startTime.toUTCString()} - ${elappsed}ms`;
             Logger.info(message);
+
+            //run list of postmiddlewares
+            var postMiddlewares = req.postMiddlewares || [];
+            postMiddlewares.forEach(pm=>{
+              if(typeof pm == "function"){
+                pm(req, res);
+              }
+            });
         });
         next();
     })

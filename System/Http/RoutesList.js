@@ -4,6 +4,15 @@
 module.exports = [
     {
         'verb' : 'get',
+        'route' : '/basic',
+        'controllerAction' : 'Sample/Basic',
+        'middlewares' : ['Token'],
+        'postMiddlewares' : ['Log'], 
+        'useCache' : false
+    },
+
+    {
+        'verb' : 'get',
         'route' : '/Sample/departments',
         'controllerAction' : 'Sample/Departments',
         'middlewares' : ['Token'],

@@ -7,7 +7,7 @@ module.exports = {
   HTTPS_SERVER_PORT: process.env.HTTPS_SERVER_PORT || 5020,
 
 
-  TOKEN : 'QcG6kP3yDnUHD67hWAAQyqrDdFm4gBPW',
+  TOKEN : 'prodt',
   BASE_URL : process.env.BASE_URL || 'http://127.0.0.1',
 
   REDIS_HOST : process.env.REDIS_HOST || '127.0.0.1',
